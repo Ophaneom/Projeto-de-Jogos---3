@@ -10,7 +10,6 @@ public class MapRenderer : MonoBehaviour
     private Vector2 centerSpacement;
 
     private Vector2 actualCenterPosition = Vector2.zero;
-    private Vector2[] nextPossibleChunks = new Vector2[8];
 
     private MapGenerator mapGenerator;
 
@@ -25,18 +24,23 @@ public class MapRenderer : MonoBehaviour
         QueryChunkUpdate();
     }
 
+    private Vector2 RoundToNearestChunk()
+    {
+        Vector2 _camPos = new Vector2((cam.transform.position.y * 2) - -cam.transform.position.x,
+             (cam.transform.position.y * 2) + -cam.transform.position.x);
+        Vector2 _distanceBetweenChunks = chunkSize;
+
+        return new Vector2(Mathf.Round(_camPos.x / _distanceBetweenChunks.x) * _distanceBetweenChunks.x,
+            Mathf.Round(_camPos.y / _distanceBetweenChunks.y) * _distanceBetweenChunks.y);
+    }
+
     private void Update()
     {
-        foreach (Vector2 _possibleChunk in nextPossibleChunks)
+        Vector2 _actualPos = RoundToNearestChunk();
+        if (actualCenterPosition != _actualPos)
         {
-            if (cam.transform.position.x > _possibleChunk.x - (chunkSize.x / 2 - centerSpacement.x) &&
-                cam.transform.position.x < _possibleChunk.x + (chunkSize.x / 2 - centerSpacement.x) &&
-                cam.transform.position.y > _possibleChunk.y - (chunkSize.y / 2 - centerSpacement.y) &&
-                cam.transform.position.y < _possibleChunk.y + (chunkSize.y / 2 - centerSpacement.y))
-            {
-                actualCenterPosition = _possibleChunk;
-                QueryChunkUpdate();
-            }
+            actualCenterPosition = _actualPos;
+            QueryChunkUpdate();
         }
     }
 
@@ -59,15 +63,5 @@ public class MapRenderer : MonoBehaviour
         mapGenerator.DrawChunk(new Vector2(actualCenterPosition.x - chunkSize.x, actualCenterPosition.y - chunkSize.y));
         mapGenerator.DrawChunk(new Vector2(actualCenterPosition.x + chunkSize.x, actualCenterPosition.y - chunkSize.y));
         mapGenerator.DrawChunk(new Vector2(actualCenterPosition.x - chunkSize.x, actualCenterPosition.y + chunkSize.y));
-
-        //Get next possible chunks positions
-        nextPossibleChunks[0] = new Vector2(actualCenterPosition.x + chunkSize.x, actualCenterPosition.y);
-        nextPossibleChunks[1] = new Vector2(actualCenterPosition.x - chunkSize.x, actualCenterPosition.y);
-        nextPossibleChunks[2] = new Vector2(actualCenterPosition.x, actualCenterPosition.y + chunkSize.y);
-        nextPossibleChunks[3] = new Vector2(actualCenterPosition.x, actualCenterPosition.y - chunkSize.y);
-        nextPossibleChunks[4] = new Vector2(actualCenterPosition.x + chunkSize.x, actualCenterPosition.y + chunkSize.y);
-        nextPossibleChunks[5] = new Vector2(actualCenterPosition.x - chunkSize.x, actualCenterPosition.y - chunkSize.y);
-        nextPossibleChunks[6] = new Vector2(actualCenterPosition.x + chunkSize.x, actualCenterPosition.y - chunkSize.y);
-        nextPossibleChunks[7] = new Vector2(actualCenterPosition.x - chunkSize.x, actualCenterPosition.y + chunkSize.y);
     }
 }
