@@ -79,5 +79,6 @@ public class MapGenerator : MonoBehaviour
     {
         ground.ClearAllTiles();
         vegetation.ClearAllTiles();
+        water.ClearAllTiles();
     }
 }
