@@ -18,7 +18,9 @@ public class MapGenerator : MonoBehaviour
     [Header("Tile Settings")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap vegetation;
+    [SerializeField] private Tilemap water;
     [SerializeField] private TileBase groundTile;
+    [SerializeField] private TileBase waterTile;
     [SerializeField] private TileBase tinyGrass;
     [SerializeField] private TileBase tallGrass;
     [SerializeField] private TileBase tree;
@@ -68,6 +70,7 @@ public class MapGenerator : MonoBehaviour
                         if (_treePerlin > .8f) vegetation.SetTile(new Vector3Int(_x, _y), tree);
                     }
                 }
+                else water.SetTile(new Vector3Int(_x, _y), waterTile);
             }
         }
     }
