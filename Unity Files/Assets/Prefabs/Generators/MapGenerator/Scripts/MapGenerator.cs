@@ -47,7 +47,6 @@ public class MapGenerator : MonoBehaviour
             Vector2 _startPos = new Vector2(_chunk.x - ((chunkSize.x / 2) - centerSpacement.x),
             _chunk.y - ((chunkSize.y / 2) - centerSpacement.y));
 
-            //Generate tiles per perlin position
             for (var _y = (int)_startPos.y; _y < (int)_startPos.y + chunkSize.y; _y++)
             {
                 for (var _x = (int)_startPos.x; _x < (int)_startPos.x + chunkSize.x; _x++)
@@ -56,21 +55,6 @@ public class MapGenerator : MonoBehaviour
                     if (_groundPerlin > .5f)
                     {
                         ground.SetTile(new Vector3Int(_x, _y), groundTile);
-
-                        var _tile = mapDatabase.tiles.FirstOrDefault(o => o.tilePosition == new Vector3Int(_x, _y));
-                        if (_tile != null)
-                        {
-                            vegetation.SetTile(new Vector3Int(_x, _y), _tile.tileReference);
-                        }
-                        else
-                        {
-                            float _vegetationPerlin = Mathf.PerlinNoise((_x + 512 + seed) * vegetationPerlinSize, (_y + 512 + seed) * vegetationPerlinSize);
-                            //if (_vegetationPerlin >= .3f && _groundPerlin < .6f) vegetation.SetTile(new Vector3Int(_x, _y), tinyGrass);
-                            if (_vegetationPerlin >= .8f) vegetation.SetTile(new Vector3Int(_x, _y), tallGrass);
-
-                            float _treePerlin = Mathf.PerlinNoise((_x + 128 + seed) * treePerlinSize, (_y + 128 + seed) * treePerlinSize);
-                            if (_treePerlin > .8f) vegetation.SetTile(new Vector3Int(_x, _y), tree);
-                        }
                     }
                     else water.SetTile(new Vector3Int(_x, _y), waterTile);
                 }

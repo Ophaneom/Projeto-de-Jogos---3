@@ -87,4 +87,12 @@ public class MapRenderer : MonoBehaviour
         //Save actual rendered chunks
         renderedChunks = _chunksToSave;
     }
+
+    public void ReloadChunks()
+    {
+        //Just delete all chunks and redraw them
+        mapGenerator.RemoveChunks(renderedChunks);
+        renderedChunks.Clear();
+        QueryChunkUpdate();
+    }
 }
