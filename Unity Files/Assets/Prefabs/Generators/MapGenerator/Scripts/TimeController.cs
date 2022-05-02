@@ -11,9 +11,7 @@ public class TimeController : MonoBehaviour
     public float actualTick;
     [SerializeField] private GameObject globalLightObj;
     [Range(0, 1)] public float nightIntensity;
-
-    [Header("Day Settings")]
-    public float dayTickStart;
+    public bool pauseClock;
 
     [Header("Sunset Settings")]
     public float sunsetTickStart;
@@ -30,10 +28,8 @@ public class TimeController : MonoBehaviour
 
     private void Awake()
     {
-        intervals[0] = nightIntensity / (nightTickStart - sunsetTickStart); //Duração do por do sol
-        intervals[1] = nightIntensity / (sunriseTickEnd - sunriseTickStart); //Duração do nascer do Sol
-
-        Debug.Log($"{intervals[0]} || {intervals[1]}");
+        intervals[0] = nightIntensity / (nightTickStart - sunsetTickStart);
+        intervals[1] = nightIntensity / (sunriseTickEnd - sunriseTickStart);
     }
 
     private void Start()
@@ -43,6 +39,7 @@ public class TimeController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (pauseClock) return;
         if (actualTick <= sunriseTickEnd)
         {
             actualTick += timeVelocity;
