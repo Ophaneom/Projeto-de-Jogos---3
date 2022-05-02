@@ -18,7 +18,9 @@ public class MapGenerator : MonoBehaviour
     [Header("Tile Settings")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap vegetation;
+    [SerializeField] private Tilemap water;
     [SerializeField] private TileBase groundTile;
+    [SerializeField] private TileBase waterTile;
     [SerializeField] private TileBase tinyGrass;
     [SerializeField] private TileBase tallGrass;
     [SerializeField] private TileBase tree;
@@ -38,43 +40,44 @@ public class MapGenerator : MonoBehaviour
         mapDatabase = this.GetComponent<MapDatabase>();
     }
 
-    public void DrawChunk(Vector2 _centerPos)
+    public void DrawChunk(List<Vector2> _chunksToRender)
     {
-        Vector2 _startPos = new Vector2 (_centerPos.x - ((chunkSize.x / 2) - centerSpacement.x),
-            _centerPos.y - ((chunkSize.y / 2) - centerSpacement.y));
-        
-        //Generate tiles per perlin position
-        for (var _y = (int)_startPos.y; _y < (int)_startPos.y + chunkSize.y; _y++)
+        foreach(Vector2 _chunk in _chunksToRender)
         {
-            for (var _x = (int)_startPos.x; _x < (int)_startPos.x + chunkSize.x; _x++)
+            Vector2 _startPos = new Vector2(_chunk.x - ((chunkSize.x / 2) - centerSpacement.x),
+            _chunk.y - ((chunkSize.y / 2) - centerSpacement.y));
+
+            for (var _y = (int)_startPos.y; _y < (int)_startPos.y + chunkSize.y; _y++)
             {
-                float _groundPerlin = Mathf.PerlinNoise((_x + seed) * groundPerlinSize, (_y + seed) * groundPerlinSize);
-                if (_groundPerlin > .5f)
+                for (var _x = (int)_startPos.x; _x < (int)_startPos.x + chunkSize.x; _x++)
                 {
-                    ground.SetTile(new Vector3Int(_x, _y), groundTile);
-
-                    var _tile = mapDatabase.tiles.FirstOrDefault(o => o.tilePosition == new Vector3Int(_x, _y));
-                    if (_tile != null)
+                    float _groundPerlin = Mathf.PerlinNoise((_x + seed) * groundPerlinSize, (_y + seed) * groundPerlinSize);
+                    if (_groundPerlin > .5f)
                     {
-                        vegetation.SetTile(new Vector3Int(_x, _y), _tile.tileReference);
+                        ground.SetTile(new Vector3Int(_x, _y), groundTile);
                     }
-                    else
-                    {
-                        float _vegetationPerlin = Mathf.PerlinNoise((_x + 512 + seed) * vegetationPerlinSize, (_y + 512 + seed) * vegetationPerlinSize);
-                        if (_vegetationPerlin >= .3f && _groundPerlin < .6f) vegetation.SetTile(new Vector3Int(_x, _y), tinyGrass);
-                        else if (_vegetationPerlin >= .6f && _groundPerlin < .8f) vegetation.SetTile(new Vector3Int(_x, _y), tallGrass);
-
-                        float _treePerlin = Mathf.PerlinNoise((_x + 128 + seed) * treePerlinSize, (_y + 128 + seed) * treePerlinSize);
-                        if (_treePerlin > .8f) vegetation.SetTile(new Vector3Int(_x, _y), tree);
-                    }
+                    else water.SetTile(new Vector3Int(_x, _y), waterTile);
                 }
             }
         }
     }
 
-    public void ResetChunks()
+    public void RemoveChunks(List<Vector2> _chunksToRemove)
     {
-        ground.ClearAllTiles();
-        vegetation.ClearAllTiles();
+        foreach(Vector2 _chunk in _chunksToRemove)
+        {
+            Vector2 _startPos = new Vector2(_chunk.x - ((chunkSize.x / 2) - centerSpacement.x),
+            _chunk.y - ((chunkSize.y / 2) - centerSpacement.y));
+
+            for (var _y = (int)_startPos.y; _y < (int)_startPos.y + chunkSize.y; _y++)
+            {
+                for (var _x = (int)_startPos.x; _x < (int)_startPos.x + chunkSize.x; _x++)
+                {
+                    ground.SetTile(new Vector3Int(_x, _y), null);
+                    water.SetTile(new Vector3Int(_x, _y), null);
+                    vegetation.SetTile(new Vector3Int(_x, _y), null);
+                }
+            }
+        }
     }
 }
