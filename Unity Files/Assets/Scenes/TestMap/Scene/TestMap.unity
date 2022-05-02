@@ -201,8 +201,8 @@ TilemapRenderer:
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
-  m_SortOrder: 3
-  m_Mode: 0
+  m_SortOrder: 2
+  m_Mode: 1
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
 --- !u!1839735485 &125353410
@@ -252,6 +252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363078822}
+  - component: {fileID: 363078826}
   - component: {fileID: 363078821}
   - component: {fileID: 363078823}
   - component: {fileID: 363078825}
@@ -345,6 +346,28 @@ MonoBehaviour:
   tile: {fileID: 11400000, guid: fa9b66a5daec27340aec21c783eb8e1d, type: 2}
   constructionMap: {fileID: 1351064057}
   vegetationMap: {fileID: 1351064057}
+--- !u!114 &363078826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363078820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42c1239551adc68468f875781104430a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeVelocity: 1
+  actualDay: 0
+  actualTick: 0
+  globalLightObj: {fileID: 619394800}
+  nightIntensity: 0.9
+  dayTickStart: 0
+  sunsetTickStart: 2000
+  nightTickStart: 3000
+  sunriseTickStart: 5000
+  sunriseTickEnd: 6000
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
