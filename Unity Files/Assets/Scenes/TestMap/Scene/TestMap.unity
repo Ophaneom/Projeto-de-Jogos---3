@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 363078823}
   - component: {fileID: 363078825}
   - component: {fileID: 363078824}
+  - component: {fileID: 363078827}
   m_Layer: 0
   m_Name: Map Controller
   m_TagString: Untagged
@@ -276,8 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbf798d323e19944b07b3813b20c8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 61841
-  groundPerlinSize: 0.0025
+  seed: 0
+  groundPerlinSize: 0.01
   vegetationPerlinSize: 0.8
   treePerlinSize: 0.6
   ground: {fileID: 635365589}
@@ -288,6 +289,15 @@ MonoBehaviour:
   tinyGrassTile: {fileID: 0}
   tallGrassTile: {fileID: 0}
   treeTile: {fileID: 0}
+  tests:
+  - {fileID: 11400000, guid: c1ea8c7c63d00a343a931f71c5a78bf0, type: 2}
+  - {fileID: 11400000, guid: 2289caf295c1b3b49a706f4d573858d3, type: 2}
+  - {fileID: 11400000, guid: 68bf5ada9d19eb641b07fdff5c78ec0b, type: 2}
+  - {fileID: 11400000, guid: 49686fe4c46c7e442b20a524361fc891, type: 2}
+  - {fileID: 11400000, guid: 867b76df43ec9e647bc022b8f9ab427b, type: 2}
+  - {fileID: 11400000, guid: 8b4a74d5948a9ca4887d8e4a2cba991c, type: 2}
+  - {fileID: 11400000, guid: 10f2fae80d911094ca4a5d720bce0a51, type: 2}
+  - {fileID: 11400000, guid: 1e1436a5cb5973e4b8293bdb3356746b, type: 2}
   centerSpacement: {x: 0, y: 0}
 --- !u!4 &363078822
 Transform:
@@ -369,6 +379,20 @@ MonoBehaviour:
   nightTickStart: 16000
   sunriseTickStart: 22000
   sunriseTickEnd: 24000
+--- !u!114 &363078827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363078820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf33b75bc7735444a4d03592bb87c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  biomesSize: 0.01
+  test: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,4 +1233,71 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1983181161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1983181164}
+  - component: {fileID: 1983181163}
+  - component: {fileID: 1983181162}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1983181162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983181161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1983181163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983181161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1983181164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983181161}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
