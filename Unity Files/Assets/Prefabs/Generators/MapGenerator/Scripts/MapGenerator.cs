@@ -9,21 +9,23 @@ public class MapGenerator : MonoBehaviour
     [Header("General Settings")]
     public int seed;
 
-    [Header("Chunk Settings")]
+    [Header("Chunks Settings")]
     private Vector2 chunkSize;
     [SerializeField] private float groundPerlinSize;
     [SerializeField] private float vegetationPerlinSize;
     [SerializeField] private float treePerlinSize;
 
-    [Header("Tile Settings")]
+    [Header("Tilemaps Settings")]
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap vegetation;
     [SerializeField] private Tilemap water;
+
+    [Header("Tiles Settings")]
     [SerializeField] private TileBase groundTile;
     [SerializeField] private TileBase waterTile;
-    [SerializeField] private TileBase tinyGrass;
-    [SerializeField] private TileBase tallGrass;
-    [SerializeField] private TileBase tree;
+    [SerializeField] private TileBase tinyGrassTile;
+    [SerializeField] private TileBase tallGrassTile;
+    [SerializeField] private TileBase treeTile;
 
     public Vector2 centerSpacement;
     private MapRenderer mapRenderer;
@@ -31,13 +33,13 @@ public class MapGenerator : MonoBehaviour
 
     private void Awake()
     {
-        centerSpacement.x = chunkSize.x % 2 == 0 ? 0 : .5f;
-        centerSpacement.y = chunkSize.y % 2 == 0 ? 0 : .5f;
-
+        mapDatabase = this.GetComponent<MapDatabase>();
         mapRenderer = this.GetComponent<MapRenderer>();
         chunkSize = mapRenderer.chunkSize;
 
-        mapDatabase = this.GetComponent<MapDatabase>();
+        centerSpacement = Vector2.zero;
+        //centerSpacement.x = chunkSize.x % 2 == 0 ? 0 : .5f;
+        //centerSpacement.y = chunkSize.y % 2 == 0 ? 0 : .5f;
     }
 
     public void DrawChunk(List<Vector2> _chunksToRender)
@@ -59,6 +61,8 @@ public class MapGenerator : MonoBehaviour
                     else water.SetTile(new Vector3Int(_x, _y), waterTile);
                 }
             }
+
+            //mapDatabase.SaveChunkData(_chunk);
         }
     }
 
@@ -78,6 +82,24 @@ public class MapGenerator : MonoBehaviour
                     vegetation.SetTile(new Vector3Int(_x, _y), null);
                 }
             }
+        }
+    }
+
+    public void AddVegetation(Vector2 _mapPosition)
+    {
+        float _biomePerlin = Mathf.PerlinNoise((_mapPosition.x + seed) * .05f, (_mapPosition.y + seed) * .05f);
+
+        if (_biomePerlin < .33f)
+        {
+
+        }
+        else if (_biomePerlin >= .33f && _biomePerlin < .66f)
+        {
+
+        }
+        else
+        {
+
         }
     }
 }

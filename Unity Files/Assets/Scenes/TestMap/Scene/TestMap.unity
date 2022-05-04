@@ -285,9 +285,9 @@ MonoBehaviour:
   water: {fileID: 804754415}
   groundTile: {fileID: 11400000, guid: ba253146c587e3a439fec0e69f4db57a, type: 2}
   waterTile: {fileID: 11400000, guid: 5f486bb8f4031404f8bdad200f112a7a, type: 2}
-  tinyGrass: {fileID: 11400000, guid: 9992b7501172b844da87a9e17ae6bd48, type: 2}
-  tallGrass: {fileID: 11400000, guid: 9992b7501172b844da87a9e17ae6bd48, type: 2}
-  tree: {fileID: 11400000, guid: a707aee2b35441045a5cb53c20c7b827, type: 2}
+  tinyGrassTile: {fileID: 0}
+  tallGrassTile: {fileID: 0}
+  treeTile: {fileID: 0}
   centerSpacement: {x: 0, y: 0}
 --- !u!4 &363078822
 Transform:
@@ -330,6 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd19223938eabe34db29ba8c0d185b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileMaps:
+  - {fileID: 804754415}
+  - {fileID: 635365589}
+  - {fileID: 1351064057}
+  - {fileID: 125353410}
 --- !u!114 &363078825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,10 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab6028be7fff0474aa7263cd93ff78b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  editMode: 1
-  tile: {fileID: 11400000, guid: fa9b66a5daec27340aec21c783eb8e1d, type: 2}
-  constructionMap: {fileID: 1351064057}
-  vegetationMap: {fileID: 1351064057}
 --- !u!114 &363078826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b962e3692ac354442a45f1d2ab6d44f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 1
+  velocity: 2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
