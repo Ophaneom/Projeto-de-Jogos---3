@@ -27,13 +27,18 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private TileBase tallGrassTile;
     [SerializeField] private TileBase treeTile;
 
+    [Header("Test")]
+    [SerializeField] private TileBase[] tests;
+
     public Vector2 centerSpacement;
     private MapRenderer mapRenderer;
     private MapDatabase mapDatabase;
+    private MapBiomes mapBiomes;
 
     private void Awake()
     {
         mapDatabase = this.GetComponent<MapDatabase>();
+        mapBiomes = this.GetComponent<MapBiomes>();
         mapRenderer = this.GetComponent<MapRenderer>();
         chunkSize = mapRenderer.chunkSize;
 
@@ -57,6 +62,8 @@ public class MapGenerator : MonoBehaviour
                     if (_groundPerlin > .5f)
                     {
                         ground.SetTile(new Vector3Int(_x, _y), groundTile);
+
+                        vegetation.SetTile(new Vector3Int(_x, _y), tests[mapBiomes.GetBiome(new Vector2(_x, _y), seed)]);
                     }
                     else water.SetTile(new Vector3Int(_x, _y), waterTile);
                 }

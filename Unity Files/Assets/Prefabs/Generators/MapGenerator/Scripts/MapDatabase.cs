@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +33,6 @@ public class ChunkData
 {
     public Vector2 chunk;
     public TileData[,] tiles;
-
 
     public ChunkData(Vector2 _chunk, Vector2 _chunkSize, Vector2 _centerSpacement, Tilemap[] _tileMaps)
     {
