@@ -33,6 +33,13 @@ public class MapBiomes : MonoBehaviour
     [SerializeField] private TileBase mediumRock;
 
     private float generalPerlin = .5f;
+    private MapGenerator mapGenerator;
+
+    private void Start()
+    {
+        mapGenerator = this.GetComponent<MapGenerator>();
+        Random.InitState(mapGenerator.seed);
+    }
 
     public TileBase GetBiome(Vector2 _pos, int _seed, bool _vegetation, bool _ground)
     {
@@ -46,6 +53,7 @@ public class MapBiomes : MonoBehaviour
 
         Color _final = _p1 + _p2 + _p3;
 
+        float _random = Random.value;
 
         if (_final == new Color(1, 0, 0, 1))
         {
@@ -55,8 +63,7 @@ public class MapBiomes : MonoBehaviour
             }
             else
             {
-                float _deepForestNoise = Mathf.PerlinNoise((_pos.x + _seed) * generalPerlin, (_pos.y + _seed) * generalPerlin);
-                if (_deepForestNoise >= deepForestNoise) return deepForestTree;
+                if (_random >= deepForestNoise) return deepForestTree;
             }
         }
         else if (_final == new Color(0, 1, 0, 1)) 
@@ -67,12 +74,7 @@ public class MapBiomes : MonoBehaviour
             }
             else
             {
-                float _forestNoise = Mathf.PerlinNoise((_pos.x + _seed) * generalPerlin, (_pos.y + _seed) * generalPerlin);
-                if (_forestNoise >= forestNoise) return forestTree;
-
-                float a = Mathf.PerlinNoise((_pos.x + _seed) * generalPerlin, (_pos.y + _seed) * generalPerlin);
-                if (a >= .802f) return mediumRock;
-                //else return tinyGrass;
+                if (_random >= forestNoise) return forestTree;
             }
         }
         else if (_final == new Color(0, 0, 1, 1))
@@ -83,8 +85,7 @@ public class MapBiomes : MonoBehaviour
             }
             else
             {
-                float _desertNoise = Mathf.PerlinNoise((_pos.x + _seed) * generalPerlin, (_pos.y + _seed) * generalPerlin);
-                if (_desertNoise >= desertNoise) return desertCactus;
+                if (_random >= desertNoise) return desertCactus;
             }
         }
         else
@@ -95,9 +96,7 @@ public class MapBiomes : MonoBehaviour
             }
             else
             {
-                float _taigaNoise = Mathf.PerlinNoise((_pos.x + _seed) * generalPerlin, (_pos.y + _seed) * generalPerlin);
-                if (_taigaNoise >= taigaNoise) return taigaTree;
-                //else return tinyGrass;
+                if (_random >= taigaNoise) return taigaTree;
             }
         }
 
