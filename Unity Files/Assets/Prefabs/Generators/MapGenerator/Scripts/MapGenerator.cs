@@ -61,9 +61,9 @@ public class MapGenerator : MonoBehaviour
                     float _groundPerlin = Mathf.PerlinNoise((_x + seed) * groundPerlinSize, (_y + seed) * groundPerlinSize);
                     if (_groundPerlin > .5f)
                     {
-                        ground.SetTile(new Vector3Int(_x, _y), groundTile);
+                        ground.SetTile(new Vector3Int(_x, _y), mapBiomes.GetBiome(new Vector2(_x, _y), seed, false, true));
 
-                        vegetation.SetTile(new Vector3Int(_x, _y), tests[mapBiomes.GetBiome(new Vector2(_x, _y), seed)]);
+                        vegetation.SetTile(new Vector3Int(_x, _y), mapBiomes.GetBiome(new Vector2(_x, _y), seed, true, false));
                     }
                     else water.SetTile(new Vector3Int(_x, _y), waterTile);
                 }
