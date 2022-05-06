@@ -252,13 +252,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 363078822}
-  - component: {fileID: 363078828}
   - component: {fileID: 363078826}
   - component: {fileID: 363078821}
   - component: {fileID: 363078823}
   - component: {fileID: 363078825}
-  - component: {fileID: 363078824}
+  - component: {fileID: 363078828}
   - component: {fileID: 363078827}
+  - component: {fileID: 363078824}
   m_Layer: 0
   m_Name: Map Controller
   m_TagString: Untagged
@@ -280,26 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 4560
   groundPerlinSize: 0.01
-  vegetationPerlinSize: 0.8
-  treePerlinSize: 0.6
   ground: {fileID: 635365589}
   vegetation: {fileID: 1351064057}
   water: {fileID: 804754415}
-  groundTile: {fileID: 11400000, guid: ba253146c587e3a439fec0e69f4db57a, type: 2}
   waterTile: {fileID: 11400000, guid: 5f486bb8f4031404f8bdad200f112a7a, type: 2}
-  tinyGrassTile: {fileID: 0}
-  tallGrassTile: {fileID: 0}
-  treeTile: {fileID: 0}
-  tests:
-  - {fileID: 11400000, guid: c1ea8c7c63d00a343a931f71c5a78bf0, type: 2}
-  - {fileID: 11400000, guid: 2289caf295c1b3b49a706f4d573858d3, type: 2}
-  - {fileID: 11400000, guid: 68bf5ada9d19eb641b07fdff5c78ec0b, type: 2}
-  - {fileID: 11400000, guid: 49686fe4c46c7e442b20a524361fc891, type: 2}
-  - {fileID: 11400000, guid: 867b76df43ec9e647bc022b8f9ab427b, type: 2}
-  - {fileID: 11400000, guid: 8b4a74d5948a9ca4887d8e4a2cba991c, type: 2}
-  - {fileID: 11400000, guid: 10f2fae80d911094ca4a5d720bce0a51, type: 2}
-  - {fileID: 11400000, guid: 1e1436a5cb5973e4b8293bdb3356746b, type: 2}
-  centerSpacement: {x: 0, y: 0}
 --- !u!4 &363078822
 Transform:
   m_ObjectHideFlags: 0
@@ -575,7 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b962e3692ac354442a45f1d2ab6d44f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 2
+  velocity: 6
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0

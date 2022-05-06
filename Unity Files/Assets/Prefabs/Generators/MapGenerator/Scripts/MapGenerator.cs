@@ -10,8 +10,6 @@ public class MapGenerator : MonoBehaviour
     [Header("Chunks Settings")]
     private Vector2 chunkSize;
     [SerializeField] private float groundPerlinSize;
-    [SerializeField] private float vegetationPerlinSize;
-    [SerializeField] private float treePerlinSize;
 
     [Header("Tilemaps Settings")]
     [SerializeField] private Tilemap ground;
@@ -19,16 +17,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Tilemap water;
 
     [Header("Tiles Settings")]
-    [SerializeField] private TileBase groundTile;
     [SerializeField] private TileBase waterTile;
-    [SerializeField] private TileBase tinyGrassTile;
-    [SerializeField] private TileBase tallGrassTile;
-    [SerializeField] private TileBase treeTile;
 
-    [Header("Test")]
-    [SerializeField] private TileBase[] tests;
-
-    public Vector2 centerSpacement;
     private MapRenderer mapRenderer;
     private MapDatabase mapDatabase;
     private MapBiomes mapBiomes;
@@ -43,8 +33,6 @@ public class MapGenerator : MonoBehaviour
         mapStructures = this.GetComponent<MapStructures>();
         mapRenderer = this.GetComponent<MapRenderer>();
         chunkSize = mapRenderer.chunkSize;
-
-        centerSpacement = Vector2.zero;
     }
 
     public void DrawChunk(List<Vector2> _chunksToRender)
@@ -62,8 +50,8 @@ public class MapGenerator : MonoBehaviour
             }
             else
             {
-            Vector2 _startPos = new Vector2(_chunk.x - ((chunkSize.x / 2) - centerSpacement.x),
-            _chunk.y - ((chunkSize.y / 2) - centerSpacement.y));
+            Vector2 _startPos = new Vector2(_chunk.x - (chunkSize.x / 2),
+            _chunk.y - (chunkSize.y / 2));
 
                 for (var _y = (int)_startPos.y; _y < (int)_startPos.y + chunkSize.y; _y++)
                 {
@@ -96,8 +84,8 @@ public class MapGenerator : MonoBehaviour
         {
             mapDatabase.SaveChunkData(_chunk);
 
-            Vector2 _startPos = new Vector2(_chunk.x - ((chunkSize.x / 2) - centerSpacement.x),
-            _chunk.y - ((chunkSize.y / 2) - centerSpacement.y));
+            Vector2 _startPos = new Vector2(_chunk.x - (chunkSize.x / 2),
+            _chunk.y - (chunkSize.y / 2));
 
             for (var _y = (int)_startPos.y; _y < (int)_startPos.y + chunkSize.y; _y++)
             {
