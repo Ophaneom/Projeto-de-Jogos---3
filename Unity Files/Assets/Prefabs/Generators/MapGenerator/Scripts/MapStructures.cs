@@ -8,32 +8,18 @@ public class MapStructures : MonoBehaviour
     [SerializeField] private Grid[] structures;
     [SerializeField] private Grid mainGrid;
 
-    private MapGenerator mapGenerator;
-
-    private void Start()
-    {
-        mapGenerator = this.GetComponent<MapGenerator>();
-        Random.InitState(mapGenerator.seed);
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T)) DrawStructure(Vector2.zero);
-    }
-
-    public List<StructureData> GetStructure()
+    private List<StructureData> GetStructure(int _type)
     {
         List<StructureData> _structureData = new List<StructureData>();
         List<Tilemap> _tileMaps = new List<Tilemap>();
 
-        foreach (Transform tilemap in structures[0].transform)
+        foreach (Transform tilemap in structures[_type].transform)
         {
             _tileMaps.Add(tilemap.GetComponent<Tilemap>());
         }
 
         foreach (Tilemap _tilemap in _tileMaps)
         {
-            Debug.Log(_tilemap.cellBounds);
             foreach (var _position in _tilemap.cellBounds.allPositionsWithin)
             {
                 if (!_tilemap.HasTile(_position)) continue;
@@ -48,17 +34,21 @@ public class MapStructures : MonoBehaviour
         return _structureData;
     }
 
-    private void DrawStructure(Vector2 _position)
+    public void DrawStructure(Vector2 _position, int _type)
     {
-        List<StructureData> _structureTileInfos = GetStructure();
+        List<StructureData> _structureTileInfos = GetStructure(_type);
 
         foreach (StructureData _struct in _structureTileInfos)
         {
-            if (mainGrid.transform.Find("VegetationTileMap").GetComponent<Tilemap>().HasTile(_struct.position)) mainGrid.transform.Find("VegetationTileMap").GetComponent<Tilemap>().SetTile(_struct.position, null);
-            if (mainGrid.transform.Find("WaterTileMap").GetComponent<Tilemap>().HasTile(_struct.position)) mainGrid.transform.Find("WaterTileMap").GetComponent<Tilemap>().SetTile(_struct.position, null);
+            Vector3Int _convertedPos = Vector3Int.zero;
+            _convertedPos.x = (int)_position.x + _struct.position.x;
+            _convertedPos.y = (int)_position.y + _struct.position.y;
+
+            if (mainGrid.transform.Find("VegetationTileMap").GetComponent<Tilemap>().HasTile(_convertedPos)) mainGrid.transform.Find("VegetationTileMap").GetComponent<Tilemap>().SetTile(_convertedPos, null);
+            if (mainGrid.transform.Find("WaterTileMap").GetComponent<Tilemap>().HasTile(_convertedPos)) mainGrid.transform.Find("WaterTileMap").GetComponent<Tilemap>().SetTile(_convertedPos, null);
 
             Tilemap _actualTilemap = mainGrid.transform.Find(_struct.tileMap.name).GetComponent<Tilemap>();
-            _actualTilemap.SetTile(_struct.position, _struct.tile);
+            _actualTilemap.SetTile(_convertedPos, _struct.tile);
         }
     }
 }

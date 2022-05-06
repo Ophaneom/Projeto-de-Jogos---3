@@ -32,15 +32,6 @@ public class MapBiomes : MonoBehaviour
     [SerializeField] private TileBase tinyGrass;
     [SerializeField] private TileBase mediumRock;
 
-    private float generalPerlin = .5f;
-    private MapGenerator mapGenerator;
-
-    private void Start()
-    {
-        mapGenerator = this.GetComponent<MapGenerator>();
-        Random.InitState(mapGenerator.seed);
-    }
-
     public TileBase GetBiome(Vector2 _pos, int _seed, bool _vegetation, bool _ground)
     {
         float _perlin1 = Mathf.Round(Mathf.PerlinNoise((_pos.x + _seed) * biomesSize, (_pos.y + _seed) * biomesSize));
