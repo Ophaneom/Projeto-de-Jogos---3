@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MapBiomes : MonoBehaviour
 {
+    [Header("General Settings")]
     [SerializeField] private float biomesSize;
-    public Color test;
 
-    private void Awake()
-    {
-        
-    }
+    [Header("Deep Forest Settings")]
+    [SerializeField] private float deepForestNoise;
+    [SerializeField] private TileBase deepForestTree;
+    [SerializeField] private TileBase deepForestGround;
 
-    public int GetBiome(Vector2 _pos, int _seed)
+    [Header("Forest Settings")]
+    [SerializeField] private float forestNoise;
+    [SerializeField] private TileBase forestTree;
+    [SerializeField] private TileBase forestGround;
+
+    [Header("Desert Settings")]
+    [SerializeField] private float desertNoise;
+    [SerializeField] private TileBase desertCactus;
+    [SerializeField] private TileBase desertGround;
+
+    [Header("Taiga Settings")]
+    [SerializeField] private float taigaNoise;
+    [SerializeField] private TileBase taigaTree;
+    [SerializeField] private TileBase taigaGround;
+
+    [Header("Common Tiles")]
+    [SerializeField] private TileBase tinyGrass;
+    [SerializeField] private TileBase mediumRock;
+
+    public TileBase GetBiome(Vector2 _pos, int _seed, bool _vegetation, bool _ground)
     {
         float _perlin1 = Mathf.Round(Mathf.PerlinNoise((_pos.x + _seed) * biomesSize, (_pos.y + _seed) * biomesSize));
         float _perlin2 = Mathf.Round(Mathf.PerlinNoise((_pos.x + _seed + 200) * biomesSize, (_pos.y + _seed + 100) * biomesSize));
@@ -24,16 +42,53 @@ public class MapBiomes : MonoBehaviour
 
         Color _final = _p1 + _p2 + _p3;
 
-        int _biomeType;
-        if (_final == new Color(1, 0, 0, 1)) _biomeType = 0;
-        else if (_final == new Color(0, 1, 0, 1)) _biomeType = 1;
-        else if (_final == new Color(0, 0, 1, 1)) _biomeType = 2;
-        else if (_final == new Color(1, 1, 0, 1)) _biomeType = 3;
-        else if (_final == new Color(0, 1, 1, 1)) _biomeType = 4;
-        else if (_final == new Color(1, 0, 1, 1)) _biomeType = 5;
-        else if (_final == new Color(1, 1, 1, 1)) _biomeType = 6;
-        else _biomeType = 7;
+        float _random = Random.value;
 
-        return _biomeType;
+        if (_final == new Color(1, 0, 0, 1))
+        {
+            if (_ground)
+            {
+                return deepForestGround;
+            }
+            else
+            {
+                if (_random >= deepForestNoise) return deepForestTree;
+            }
+        }
+        else if (_final == new Color(0, 1, 0, 1)) 
+        {
+            if (_ground)
+            {
+                return forestGround;
+            }
+            else
+            {
+                if (_random >= forestNoise) return forestTree;
+            }
+        }
+        else if (_final == new Color(0, 0, 1, 1))
+        {
+            if (_ground)
+            {
+                return desertGround;
+            }
+            else
+            {
+                if (_random >= desertNoise) return desertCactus;
+            }
+        }
+        else
+        {
+            if (_ground)
+            {
+                return taigaGround;
+            }
+            else
+            {
+                if (_random >= taigaNoise) return taigaTree;
+            }
+        }
+
+        return null;
     }
 }

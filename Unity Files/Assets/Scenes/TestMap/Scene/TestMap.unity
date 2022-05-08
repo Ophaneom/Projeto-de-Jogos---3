@@ -256,8 +256,9 @@ GameObject:
   - component: {fileID: 363078821}
   - component: {fileID: 363078823}
   - component: {fileID: 363078825}
-  - component: {fileID: 363078824}
+  - component: {fileID: 363078828}
   - component: {fileID: 363078827}
+  - component: {fileID: 363078824}
   m_Layer: 0
   m_Name: Map Controller
   m_TagString: Untagged
@@ -277,28 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbf798d323e19944b07b3813b20c8ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: 0
+  seed: 4560
   groundPerlinSize: 0.01
-  vegetationPerlinSize: 0.8
-  treePerlinSize: 0.6
   ground: {fileID: 635365589}
   vegetation: {fileID: 1351064057}
   water: {fileID: 804754415}
-  groundTile: {fileID: 11400000, guid: ba253146c587e3a439fec0e69f4db57a, type: 2}
   waterTile: {fileID: 11400000, guid: 5f486bb8f4031404f8bdad200f112a7a, type: 2}
-  tinyGrassTile: {fileID: 0}
-  tallGrassTile: {fileID: 0}
-  treeTile: {fileID: 0}
-  tests:
-  - {fileID: 11400000, guid: c1ea8c7c63d00a343a931f71c5a78bf0, type: 2}
-  - {fileID: 11400000, guid: 2289caf295c1b3b49a706f4d573858d3, type: 2}
-  - {fileID: 11400000, guid: 68bf5ada9d19eb641b07fdff5c78ec0b, type: 2}
-  - {fileID: 11400000, guid: 49686fe4c46c7e442b20a524361fc891, type: 2}
-  - {fileID: 11400000, guid: 867b76df43ec9e647bc022b8f9ab427b, type: 2}
-  - {fileID: 11400000, guid: 8b4a74d5948a9ca4887d8e4a2cba991c, type: 2}
-  - {fileID: 11400000, guid: 10f2fae80d911094ca4a5d720bce0a51, type: 2}
-  - {fileID: 11400000, guid: 1e1436a5cb5973e4b8293bdb3356746b, type: 2}
-  centerSpacement: {x: 0, y: 0}
 --- !u!4 &363078822
 Transform:
   m_ObjectHideFlags: 0
@@ -391,8 +376,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf33b75bc7735444a4d03592bb87c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  biomesSize: 0.01
-  test: {r: 0, g: 0, b: 0, a: 0}
+  biomesSize: 0.02
+  deepForestNoise: 0.9
+  deepForestTree: {fileID: 11400000, guid: a707aee2b35441045a5cb53c20c7b827, type: 2}
+  deepForestGround: {fileID: 11400000, guid: 34fd008e683b37d419e01db43e07eecf, type: 2}
+  forestNoise: 0.99
+  forestTree: {fileID: 11400000, guid: ccc05c121a40f324d90c4c5f1baceb3d, type: 2}
+  forestGround: {fileID: 11400000, guid: 26446a66446b5f54287cddd62f9943ae, type: 2}
+  desertNoise: 0.9
+  desertCactus: {fileID: 11400000, guid: 9992b7501172b844da87a9e17ae6bd48, type: 2}
+  desertGround: {fileID: 11400000, guid: 9f2c574181144104ab31b169b144d8cd, type: 2}
+  taigaNoise: 0.98
+  taigaTree: {fileID: 11400000, guid: 33e1683dfa0ca9a44bb379bbc5dfca88, type: 2}
+  taigaGround: {fileID: 11400000, guid: bab2e2eac5e3088489c1fb527b2df109, type: 2}
+  tinyGrass: {fileID: 11400000, guid: 8fb46113878ae5947bc13af786655786, type: 2}
+  mediumRock: {fileID: 11400000, guid: 954f2db7cec1f9b4ab49cebd793ac4d2, type: 2}
+--- !u!114 &363078828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363078820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56bd7051513c6bb4aaf56f28c9d0306b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  structures:
+  - {fileID: 6011901012543864627, guid: 34822cf9f25127140aa852f338048b15, type: 3}
+  mainGrid: {fileID: 1485145833}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,7 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b962e3692ac354442a45f1d2ab6d44f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: 2
+  velocity: 6
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
