@@ -7,28 +7,20 @@ public class MapBiomes : MonoBehaviour
     [SerializeField] private float biomesSize;
 
     [Header("Deep Forest Settings")]
-    [SerializeField] private float deepForestNoise;
-    [SerializeField] private TileBase deepForestTree;
     [SerializeField] private TileBase deepForestGround;
+    [SerializeField] private BiomeAssetsController[] deepForestAssets;
 
     [Header("Forest Settings")]
-    [SerializeField] private float forestNoise;
-    [SerializeField] private TileBase forestTree;
     [SerializeField] private TileBase forestGround;
+    [SerializeField] private BiomeAssetsController[] forestAssets;
 
     [Header("Desert Settings")]
-    [SerializeField] private float desertNoise;
-    [SerializeField] private TileBase desertCactus;
     [SerializeField] private TileBase desertGround;
+    [SerializeField] private BiomeAssetsController[] desertAssets;
 
     [Header("Taiga Settings")]
-    [SerializeField] private float taigaNoise;
-    [SerializeField] private TileBase taigaTree;
     [SerializeField] private TileBase taigaGround;
-
-    [Header("Common Tiles")]
-    [SerializeField] private TileBase tinyGrass;
-    [SerializeField] private TileBase mediumRock;
+    [SerializeField] private BiomeAssetsController[] taigaAssets;
 
     public TileBase GetBiome(Vector2 _pos, int _seed, bool _vegetation, bool _ground)
     {
@@ -42,53 +34,69 @@ public class MapBiomes : MonoBehaviour
 
         Color _final = _p1 + _p2 + _p3;
 
-        float _random = Random.value;
-
         if (_final == new Color(1, 0, 0, 1))
         {
-            if (_ground)
-            {
-                return deepForestGround;
-            }
+            if (_ground) return deepForestGround;
             else
             {
-                if (_random >= deepForestNoise) return deepForestTree;
+                foreach(BiomeAssetsController _asset in deepForestAssets)
+                {
+                    float _random = Random.Range(0f, 100f);
+
+                    if (_random <= _asset.chance) return _asset.tile;
+                }
             }
         }
+        
         else if (_final == new Color(0, 1, 0, 1)) 
         {
-            if (_ground)
-            {
-                return forestGround;
-            }
+            if (_ground) return taigaGround;
             else
             {
-                if (_random >= forestNoise) return forestTree;
+                foreach (BiomeAssetsController _asset in taigaAssets)
+                {
+                    float _random = Random.Range(0f, 100f);
+
+                    if (_random <= _asset.chance) return _asset.tile;
+                }
             }
         }
+        
         else if (_final == new Color(0, 0, 1, 1))
         {
-            if (_ground)
-            {
-                return desertGround;
-            }
+            if (_ground) return desertGround;
             else
             {
-                if (_random >= desertNoise) return desertCactus;
+                foreach (BiomeAssetsController _asset in desertAssets)
+                {
+                    float _random = Random.Range(0f, 100f);
+
+                    if (_random <= _asset.chance) return _asset.tile;
+                }
             }
         }
+        
         else
         {
-            if (_ground)
-            {
-                return taigaGround;
-            }
+            if (_ground) return forestGround;
             else
             {
-                if (_random >= taigaNoise) return taigaTree;
+                foreach (BiomeAssetsController _asset in forestAssets)
+                {
+                    float _random = Random.Range(0f, 100f);
+
+                    if (_random <= _asset.chance) return _asset.tile;
+                }
             }
         }
 
         return null;
     }
+}
+
+[System.Serializable]
+public class BiomeAssetsController
+{
+    public TileBase tile;
+    public float chance;
 }
