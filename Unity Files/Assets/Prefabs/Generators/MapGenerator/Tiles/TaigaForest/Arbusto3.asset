@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: TaigaGroundTile
+  m_Name: Arbusto3
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 154cdc859a378694199f24cdce09f53c, type: 3}
-  m_Color: {r: 0.6693218, g: 0.8396226, b: 0.7301523, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 3d0419e5ca2f148428caca8b38410c7d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
