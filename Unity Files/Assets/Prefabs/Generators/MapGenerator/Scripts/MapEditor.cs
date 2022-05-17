@@ -21,13 +21,13 @@ public class MapEditor : MonoBehaviour
         {
             if (tilemp.HasTile(gridPos))
             {
-                tilemp.SetTile(gridPos, null);
+                //tilemp.SetTile(gridPos, null);
             }
         }
 
         else if (Input.GetMouseButtonDown(1))
         {
-            tilemp.SetTile(gridPos, test);
+            //tilemp.SetTile(gridPos, test);
         }
     }
 }

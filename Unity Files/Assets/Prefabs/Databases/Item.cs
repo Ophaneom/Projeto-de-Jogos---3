@@ -39,7 +39,7 @@ public class WeaponSettings
 public class ToolSettings
 {
     public bool isTool;
-    public float strength;
+    public int strength;
     public float durability;
     public int action;
     public GameObject prefab;
