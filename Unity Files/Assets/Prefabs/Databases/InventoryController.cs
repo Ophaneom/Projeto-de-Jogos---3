@@ -26,6 +26,11 @@ public class InventoryController : MonoBehaviour
         itemComponent = this.GetComponent<Item>();
     }
 
+    private void Start()
+    {
+        SelectSlot(actualSlot);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) SelectSlot(0);
@@ -85,6 +90,7 @@ public class InventoryController : MonoBehaviour
 
                     TextMeshProUGUI itemQuantity = _slot.transform.Find("Quantity").GetComponent<TextMeshProUGUI>();
                     itemQuantity.text = _slot.quantity.ToString();
+                    SelectSlot(actualSlot);
                     return;
                 }
             }
@@ -109,6 +115,7 @@ public class InventoryController : MonoBehaviour
                 }
 
                 _slot.SetInfos(true, _item, _quantity);
+                SelectSlot(actualSlot);
                 return;
             }
         }
@@ -139,6 +146,8 @@ public class InventoryController : MonoBehaviour
                 itemQuantity.GetComponent<TextMeshProUGUI>().text = _slot.quantity.ToString();
             }
         }
+
+        SelectSlot(actualSlot);
     }
 
     public void RemoveItemFromSlot(int _slotId)
@@ -165,6 +174,12 @@ public class InventoryController : MonoBehaviour
                     if (_slot.currentItem.foodSettings.isEatable) _slotRef.transform.Find("SlotOptions/Eat").gameObject.SetActive(true);
                     if (_slot.currentItem.drinkSettings.isDrinkable) _slotRef.transform.Find("SlotOptions/Drink").gameObject.SetActive(true);
                     if (_slot.currentItem.equipmentSettings.isEquipable) _slotRef.transform.Find("SlotOptions/Equip").gameObject.SetActive(true);
+                    _slotRef.transform.Find("SlotOptions/Name").GetComponent<TextMeshProUGUI>().text = _slot.currentItem.name;
+                    if (_slot.currentItem.description.Length > 0)
+                    {
+                        _slotRef.transform.Find("SlotOptions/Description").gameObject.SetActive(true);
+                        _slotRef.transform.Find("SlotOptions/Description").GetComponent<TextMeshProUGUI>().text = _slot.currentItem.description;
+                    }
                     _slotRef.transform.Find("SlotOptions").gameObject.SetActive(true);
 
                     optionsState = true;
@@ -236,7 +251,10 @@ public class InventoryController : MonoBehaviour
         GameObject itemQuantity = _slotRef.transform.Find("Quantity").gameObject;
         itemQuantity.SetActive(false);
 
+        _slotRef.transform.Find("SlotOptions/Description").gameObject.SetActive(false);
+
         _slot.ResetInfos();
+        SelectSlot(actualSlot);
     }
 
     public void ResetOptions(GameObject _slotRef)

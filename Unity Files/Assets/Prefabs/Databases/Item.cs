@@ -12,6 +12,7 @@ public class ItemStruct
 {
     public int id;
     public string name;
+    public string description;
     public Sprite uiSprite;
     public bool stackable;
     public GameObject groundItem;
@@ -32,6 +33,7 @@ public class WeaponSettings
     public float minDamage;
     public float maxDamage;
     public float durability;
+    public float staminaConsumption;
     public GameObject prefab;
 }
 
@@ -42,6 +44,7 @@ public class ToolSettings
     public int strength;
     public float durability;
     public int action;
+    public float staminaConsumption;
     public GameObject prefab;
 }
 

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tree
+  - Stone
   layers:
   - Default
   - TransparentFX
@@ -39,6 +40,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 1820360015
+    locked: 0
+  - name: Shadows
+    uniqueID: 374555537
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground Effects
+    uniqueID: 716771373
+    locked: 0
+  - name: UI
+    uniqueID: 2780524027
     locked: 0
