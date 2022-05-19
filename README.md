@@ -19,9 +19,6 @@ Try to survive between many creatures and many other problems
 ### **Chunk generation with some biomes:**
 ![image](https://user-images.githubusercontent.com/78951385/167483489-7c9ead69-2872-4cd0-82b0-2fb0680b0748.png)
 
-### **In-game view:**
-![image](https://user-images.githubusercontent.com/78951385/167482170-a141c8f3-add2-44b5-a221-fef3cf1d5036.png)
-
 ### **Construction System:**
 ![image](https://user-images.githubusercontent.com/78951385/169368751-d10d21d4-7cc7-4a14-8a04-89664853cb24.png)
 
