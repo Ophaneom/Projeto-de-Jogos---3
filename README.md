@@ -24,3 +24,6 @@ Try to survive between many creatures and many other problems
 
 ### **Effects in different biomes:**
 ![image](https://user-images.githubusercontent.com/78951385/169369005-ba133203-d9b2-4125-906b-aa1d517716d6.png)
+
+### **Auto generated structures:**
+![image](https://user-images.githubusercontent.com/78951385/169369762-8163d668-6d6a-4275-856d-5a91fa686c3f.png)
