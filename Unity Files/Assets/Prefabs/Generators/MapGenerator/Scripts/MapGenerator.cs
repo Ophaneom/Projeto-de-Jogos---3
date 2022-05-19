@@ -15,9 +15,11 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] private Tilemap ground;
     [SerializeField] private Tilemap vegetation;
     [SerializeField] private Tilemap water;
+    [SerializeField] private Tilemap grid;
 
     [Header("Tiles Settings")]
     [SerializeField] private TileBase waterTile;
+    [SerializeField] private TileBase gridTile;
 
     private MapRenderer mapRenderer;
     private MapDatabase mapDatabase;
@@ -39,11 +41,11 @@ public class MapGenerator : MonoBehaviour
     {
         foreach(Vector2 _chunk in _chunksToRender)
         {
-            ChunkData item = mapDatabase.storedChunks.Find(item => item.chunk == _chunk);
+            ChunkData _chunkData = mapDatabase.storedChunks.Find(item => item.chunk == _chunk);
 
-            if (item != null)
+            if (_chunkData != null)
             {
-                foreach(TileData _tileData in item.tiles)
+                foreach(TileData _tileData in _chunkData.tiles)
                 {
                     _tileData.tileMap.SetTile(_tileData.position, _tileData.tile);
                 }
@@ -59,16 +61,31 @@ public class MapGenerator : MonoBehaviour
                     {
                         if (!ground.HasTile(new Vector3Int(_x, _y)))
                         {
-                            float _groundPerlin = Mathf.PerlinNoise((_x + seed) * groundPerlinSize, (_y + seed) * groundPerlinSize);
-                            if (_groundPerlin > .5f)
+                            TileBase _groundTile = mapBiomes.GetBiome(new Vector2(_x, _y), seed, false, true);
+                            grid.SetTile(new Vector3Int(_x, _y), gridTile);
+
+                            if (_groundTile.name == "LakeGround") water.SetTile(new Vector3Int(_x, _y), _groundTile);
+                            else
                             {
-                                ground.SetTile(new Vector3Int(_x, _y), mapBiomes.GetBiome(new Vector2(_x, _y), seed, false, true));
+                                ground.SetTile(new Vector3Int(_x, _y), _groundTile);
 
-                                vegetation.SetTile(new Vector3Int(_x, _y), mapBiomes.GetBiome(new Vector2(_x, _y), seed, true, false));
+                                TileBase _vegetationTile = mapBiomes.GetBiome(new Vector2(_x, _y), seed, true, false);
+                                vegetation.SetTile(new Vector3Int(_x, _y), _vegetationTile);
 
-                                if (Random.Range(0f, 100f) <= .001f) mapStructures.DrawStructure(new Vector2(_x, _y), 0);
+                                if (_vegetationTile != null)
+                                {
+                                    GameObject _gameObject = vegetation.GetInstantiatedObject(new Vector3Int(_x, _y));
+                                    if (_gameObject != null)
+                                    {
+                                        if (_gameObject.GetComponent<TileInternalData>())
+                                        {
+                                            _gameObject.GetComponent<TileInternalData>().pos = new Vector3Int(_x, _y);
+                                        }
+                                    }
+                                }
                             }
-                            else water.SetTile(new Vector3Int(_x, _y), waterTile);
+
+                            if (Random.Range(0f, 100f) <= .001f) mapStructures.DrawStructure(new Vector2(_x, _y), 0);
                         }
                     }
                 }
@@ -94,6 +111,7 @@ public class MapGenerator : MonoBehaviour
                     ground.SetTile(new Vector3Int(_x, _y), null);
                     water.SetTile(new Vector3Int(_x, _y), null);
                     vegetation.SetTile(new Vector3Int(_x, _y), null);
+                    grid.SetTile(new Vector3Int(_x, _y), null);
                 }
             }
         }

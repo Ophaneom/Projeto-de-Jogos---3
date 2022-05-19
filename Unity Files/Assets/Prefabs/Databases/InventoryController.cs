@@ -45,11 +45,7 @@ public class InventoryController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha0)) SelectSlot(9);
 
         if (Input.GetKeyDown(KeyCode.F)) AddItemAuto(0, 1);
-        if (Input.GetKeyDown(KeyCode.G)) AddItemAuto(1, 1);
         if (Input.GetKeyDown(KeyCode.H)) AddItemAuto(2, 1);
-        if (Input.GetKeyDown(KeyCode.J)) AddItemAuto(3, 1);
-        if (Input.GetKeyDown(KeyCode.K)) AddItemAuto(4, 1);
-        if (Input.GetKeyDown(KeyCode.L)) AddItemAuto(5, 1);
     }
 
     private void SelectSlot(int _slot)

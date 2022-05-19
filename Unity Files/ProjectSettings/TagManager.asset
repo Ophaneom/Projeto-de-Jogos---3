@@ -46,6 +46,9 @@ TagManager:
   - name: Shadows
     uniqueID: 374555537
     locked: 0
+  - name: PlacementGrid
+    uniqueID: 2439252985
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

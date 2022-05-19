@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 374555537
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.1764706}
@@ -328,6 +328,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4515026952608349827}
   - component: {fileID: 4515026952608349826}
+  - component: {fileID: 192864306422809014}
+  - component: {fileID: 4134022719362144534}
   m_Layer: 0
   m_Name: BigStone
   m_TagString: Stone
@@ -370,3 +372,27 @@ MonoBehaviour:
   drops:
   - id: 8
     quantity: 3
+--- !u!114 &192864306422809014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515026952608349829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a413b6065a9d7924e919ae27e0c8f8b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4134022719362144534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515026952608349829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e53fdc5e40c14504fb5eeb19f8ebc48d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

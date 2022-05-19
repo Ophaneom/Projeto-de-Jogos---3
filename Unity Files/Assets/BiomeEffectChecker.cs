@@ -23,7 +23,7 @@ public class BiomeEffectChecker : MonoBehaviour
         {
             Color coldEffectColor = coldEffect.GetComponent<Image>().color;
 
-            if (tilemp.GetTile(gridPos).name == "TaigaGroundRuleTile")
+            if (tilemp.GetTile(gridPos).name == "TaigaGround" || tilemp.GetTile(gridPos).name == "DeepForest_TaigaGround")
             {
                 if (coldEffect.transform.Find("SnowParticles").GetComponent<ParticleSystem>().emissionRate == 0)
                 {

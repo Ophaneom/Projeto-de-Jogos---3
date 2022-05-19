@@ -3,91 +3,130 @@ using UnityEngine.Tilemaps;
 
 public class MapBiomes : MonoBehaviour
 {
+    public Gradient biomeDivision;
+    public float denseForestDensity;
+    public float lakesDensity;
+    [SerializeField] private Tile lakeGround;
+
     [Header("General Settings")]
     [SerializeField] private float biomesSize;
 
-    [Header("Deep Forest Settings")]
-    [SerializeField] private TileBase deepForestGround;
-    [SerializeField] private BiomeAssetsController[] deepForestAssets;
-
     [Header("Forest Settings")]
-    [SerializeField] private TileBase forestGround;
+    [SerializeField] private Tile forestGround;
     [SerializeField] private BiomeAssetsController[] forestAssets;
 
     [Header("Desert Settings")]
-    [SerializeField] private TileBase desertGround;
+    [SerializeField] private Tile desertGround;
     [SerializeField] private BiomeAssetsController[] desertAssets;
 
     [Header("Taiga Settings")]
-    [SerializeField] private TileBase taigaGround;
+    [SerializeField] private Tile taigaGround;
     [SerializeField] private BiomeAssetsController[] taigaAssets;
+
+    [Header("Deep Forest Settings")]
+    [SerializeField] private Tile deepForestGround;
+    [SerializeField] private BiomeAssetsController[] deepForest_ForestAssets;
+    [SerializeField] private BiomeAssetsController[] deepForest_DesertAssets;
+    [SerializeField] private BiomeAssetsController[] deepForest_TaigaAssets;
+
+    public Tile CreateTile(Color _tileColor, Sprite _tileSprite, string _tileName)
+    {
+        Tile _test = ScriptableObject.CreateInstance<Tile>();
+        _test.sprite = _tileSprite;
+        _test.name = _tileName;
+        _test.color = _tileColor;
+
+        return _test;
+    }
 
     public TileBase GetBiome(Vector2 _pos, int _seed, bool _vegetation, bool _ground)
     {
-        float _perlin1 = Mathf.Round(Mathf.PerlinNoise((_pos.x + _seed) * biomesSize, (_pos.y + _seed) * biomesSize));
-        float _perlin2 = Mathf.Round(Mathf.PerlinNoise((_pos.x + _seed + 200) * biomesSize, (_pos.y + _seed + 100) * biomesSize));
-        float _perlin3 = Mathf.Round(Mathf.PerlinNoise((_pos.x + _seed - 200) * biomesSize, (_pos.y + _seed - 100) * biomesSize));
+        //GET PERLIN VALUES
+        float _mainBodyPerlin = Mathf.PerlinNoise((_pos.x + _seed) * 0.005f, (_pos.y + _seed) * 0.005f);
+        float _mainBodyConvertedPerlin = 0;
 
-        Color _p1 = _perlin1 == 1 ? Color.red : new Color(0, 0, 0, 0);
-        Color _p2 = _perlin2 == 1 ? Color.green : new Color(0, 0, 0, 0);
-        Color _p3 = _perlin3 == 1 ? Color.blue : new Color(0, 0, 0, 0);
+        float _forestBodyPerlin = Mathf.PerlinNoise((_pos.x + _seed + 300) * 0.005f, (_pos.y + _seed + 300) * 0.005f);
 
-        Color _final = _p1 + _p2 + _p3;
+        float _lakesBodyPerlin = Mathf.PerlinNoise((_pos.x + _seed + 150) * 0.005f, (_pos.y + _seed + 150) * 0.005f);
 
-        if (_final == new Color(1, 0, 0, 1))
+        if (_mainBodyPerlin <= biomeDivision.colorKeys[1].time) _mainBodyConvertedPerlin = 0f;
+        else if (_mainBodyPerlin >= biomeDivision.colorKeys[2].time && _mainBodyPerlin <= biomeDivision.colorKeys[3].time) _mainBodyConvertedPerlin = .5f;
+        else if (_mainBodyPerlin >= biomeDivision.colorKeys[4].time) _mainBodyConvertedPerlin = 1f;
+
+        else if (_mainBodyPerlin > biomeDivision.colorKeys[1].time && _mainBodyPerlin < biomeDivision.colorKeys[2].time) _mainBodyConvertedPerlin = .25f;
+        else if (_mainBodyPerlin > biomeDivision.colorKeys[3].time && _mainBodyPerlin < biomeDivision.colorKeys[4].time) _mainBodyConvertedPerlin = .75f;
+
+        //CREATE AN EMPTY TILE
+        Tile _createdTile = null;
+        BiomeAssetsController[] _biomeAssets = new BiomeAssetsController[0];
+
+        //SET MAIN GROUND
+        if (_mainBodyConvertedPerlin == 0f)
         {
-            if (_ground) return deepForestGround;
-            else
-            {
-                foreach(BiomeAssetsController _asset in deepForestAssets)
-                {
-                    float _random = Random.Range(0f, 100f);
+            _createdTile = CreateTile(biomeDivision.Evaluate(0f), desertGround.sprite, "DesertGround");
+            _biomeAssets = desertAssets;
+        }
+        else if (_mainBodyConvertedPerlin == .5f)
+        {
+            _createdTile = CreateTile(biomeDivision.Evaluate(.5f), forestGround.sprite, "ForestGround");
+            _biomeAssets = forestAssets;
+        }
+        else if (_mainBodyConvertedPerlin == 1f)
+        {
+            _createdTile = CreateTile(biomeDivision.Evaluate(1f), taigaGround.sprite, "TaigaGround");
+            _biomeAssets = taigaAssets;
+        }
 
-                    if (_random <= _asset.chance) return _asset.tile;
-                }
+        else if (_mainBodyConvertedPerlin == .25f)
+        {
+            _createdTile = CreateTile(biomeDivision.Evaluate(_mainBodyPerlin), forestGround.sprite, "ForestGround");
+            _biomeAssets = forestAssets;
+        }
+        else if (_mainBodyConvertedPerlin == .75f)
+        {
+            _createdTile = CreateTile(biomeDivision.Evaluate(_mainBodyPerlin), forestGround.sprite, "ForestGround");
+            _biomeAssets = forestAssets;
+        }
+
+        //SET DENSE FORESTS
+        if (_forestBodyPerlin <= denseForestDensity)
+        {
+            if (_createdTile.name == "ForestGround")
+            {
+                _createdTile = CreateTile(biomeDivision.Evaluate(_mainBodyPerlin), deepForestGround.sprite, "DeepForest_ForestGround");
+                _biomeAssets = deepForest_ForestAssets;
+            }
+            else if (_createdTile.name == "DesertGround")
+            {
+                _createdTile = CreateTile(biomeDivision.Evaluate(_mainBodyPerlin), deepForestGround.sprite, "DeepForest_DesertGround");
+                _biomeAssets = deepForest_DesertAssets;
+            }
+            else if (_createdTile.name == "TaigaGround")
+            {
+                _createdTile = CreateTile(biomeDivision.Evaluate(_mainBodyPerlin), deepForestGround.sprite, "DeepForest_TaigaGround");
+                _biomeAssets = deepForest_TaigaAssets;
             }
         }
-        
-        else if (_final == new Color(0, 1, 0, 1)) 
-        {
-            if (_ground) return taigaGround;
-            else
-            {
-                foreach (BiomeAssetsController _asset in taigaAssets)
-                {
-                    float _random = Random.Range(0f, 100f);
 
-                    if (_random <= _asset.chance) return _asset.tile;
-                }
+        //SET LAKES
+        if (_lakesBodyPerlin <= lakesDensity)
+        {
+            _createdTile = CreateTile(Color.white, lakeGround.sprite, "LakeGround");
+        }
+
+        //SET VEGETATION AND GROUND
+        if (_vegetation)
+        {
+            foreach (BiomeAssetsController _asset in _biomeAssets)
+            {
+                float _random = Random.Range(0f, 100f);
+
+                if (_random <= _asset.chance) return _asset.tile;
             }
         }
-        
-        else if (_final == new Color(0, 0, 1, 1))
-        {
-            if (_ground) return desertGround;
-            else
-            {
-                foreach (BiomeAssetsController _asset in desertAssets)
-                {
-                    float _random = Random.Range(0f, 100f);
-
-                    if (_random <= _asset.chance) return _asset.tile;
-                }
-            }
-        }
-        
         else
         {
-            if (_ground) return forestGround;
-            else
-            {
-                foreach (BiomeAssetsController _asset in forestAssets)
-                {
-                    float _random = Random.Range(0f, 100f);
-
-                    if (_random <= _asset.chance) return _asset.tile;
-                }
-            }
+            return _createdTile;
         }
 
         return null;
