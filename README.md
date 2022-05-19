@@ -4,7 +4,7 @@ That project are being created for a Game Design class.
 ### **Actual group members:**
 * Gustavo Prada Hinkel
 * Gabryel Goulart Schürhaus
-* Vitor de Oliveira
+* Vitor de Oliveira Ferreira
 * João Pedro Marinho
 
 ### **Game genres:**
