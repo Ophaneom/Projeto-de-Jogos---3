@@ -21,3 +21,9 @@ Try to survive between many creatures and many other problems
 
 ### **In-game view:**
 ![image](https://user-images.githubusercontent.com/78951385/167482170-a141c8f3-add2-44b5-a221-fef3cf1d5036.png)
+
+### **Construction System:**
+![image](https://user-images.githubusercontent.com/78951385/169368751-d10d21d4-7cc7-4a14-8a04-89664853cb24.png)
+
+### **Effects in different biomes:**
+![image](https://user-images.githubusercontent.com/78951385/169369005-ba133203-d9b2-4125-906b-aa1d517716d6.png)
