@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -33,6 +37,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _TEST: 0.69
+    m_Colors:
+    - _BorderColor: {r: 1, g: 0, b: 0, a: 0}
+    - _WaterColor: {r: 0.1587309, g: 0.3716482, b: 0.3867925, a: 0}
+    - _WaterColor2: {r: 0.3032325, g: 1.4427536, b: 2.994764, a: 0}
   m_BuildTextureStacks: []

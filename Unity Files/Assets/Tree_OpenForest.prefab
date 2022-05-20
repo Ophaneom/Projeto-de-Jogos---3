@@ -288,6 +288,7 @@ MonoBehaviour:
   drops:
   - id: 7
     quantity: 3
+  test: {fileID: 21300000, guid: 255c1ef9211fa9a4083e5e7ceab9d3ea, type: 3}
 --- !u!114 &8327578679120471724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53fdc5e40c14504fb5eeb19f8ebc48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0, z: 0}
 --- !u!1 &8963677420782024167
 GameObject:
   m_ObjectHideFlags: 0
